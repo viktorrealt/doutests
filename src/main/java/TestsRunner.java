@@ -6,9 +6,7 @@ import utilites.Log;
 import utilites.SystemProperties;
 import utilites.VerifyMobileView;
 import utilites.Constants;
-/**
- * Created by Ириша on 18.12.2016.
- */
+
 public class TestsRunner {
     private String browser = System.getProperty("browser");
     private String huburl = System.getProperty("huburl");
@@ -41,7 +39,11 @@ public class TestsRunner {
         hp.findPopularNewsDropdown();
         log.logger("Find popular news dropdown.");
         hp.findPopularNewsDropdownElements();
-
+        hp.findLogo();
+        log.logger("Find logo");
+        //hp.findMiniHeader(); //Changes on site
+        //log.logger("Find mini header");
+        hp.findHeaderLinks();
     }
 
     @AfterSuite
