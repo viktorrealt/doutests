@@ -44,6 +44,10 @@ public class TestsRunner {
         //hp.findMiniHeader(); //Changes on site
         //log.logger("Find mini header");
         hp.findHeaderLinks();
+        hp.findSubHeaderLinks();
+        hp.findTitlesInSlider();
+        hp.findDescriptionsInSlider();
+
     }
 
     @AfterSuite

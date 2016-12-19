@@ -6,9 +6,6 @@ import utilites.Constants;
 import java.util.List;
 import utilites.Log;
 
-import static org.testng.AssertJUnit.assertTrue;
-
-
 public class HomePage {
     private final WebDriver driver;
     private Constants baseData = new Constants();
@@ -19,6 +16,9 @@ public class HomePage {
     private By logo = By.xpath("//header/ul/li[@class='logo']");
     private By miniHeader = By.xpath("//header/ul/li[@class='mini-header']");
     private By headerLinks = By.xpath("//header/ul/li/a");
+    private By subHeaderLinks = By.xpath("//div[@class='col70 m-cola']/ul/li/a");
+    private By descriptionsInSlider = By.xpath(".//*[@id='slideArticles']/ul/li/div");
+    private By titlesInSlider = By.xpath(".//*[@id='slideArticles']/ul/li/a[@class='link']");
     private Log log = new Log();
 
     public HomePage(WebDriver driver) {
@@ -73,21 +73,54 @@ public class HomePage {
         return this;
     }
 
-    HomePage findLogo()
-    {
+    HomePage findLogo() {
         driver.findElement(logo);
         return this;
     }
 
-    HomePage findMiniHeader(){
+    HomePage findMiniHeader() {
         driver.findElement(miniHeader);
         return this;
     }
 
-    HomePage findHeaderLinks()
-    {
+    HomePage findHeaderLinks() {
         List<WebElement> elements = driver.findElements(headerLinks);
         log.logger("Found " + elements.size() + " elements in header links");
+        int counter = 0;
+        for (WebElement e : elements.subList(1, elements.size())) { //Skip logo and depricated mini-header
+            log.logger("Element " + counter + " text is: " + e.getText());
+            counter++;
+        }
+
+        return this;
+    }
+
+    HomePage findSubHeaderLinks() {
+        List<WebElement> elements = driver.findElements(subHeaderLinks);
+        log.logger("Found " + elements.size() + " elements in Sub-header links");
+        int counter = 0;
+        for (WebElement e : elements) {
+            log.logger("Element " + counter + " text is: " + e.getText());
+            counter++;
+        }
+
+        return this;
+    }
+
+    HomePage findTitlesInSlider(){
+        List<WebElement> elements = driver.findElements(titlesInSlider);
+        log.logger("Found " + elements.size() + " Titles in slider");
+        int counter = 0;
+        for (WebElement e : elements) {
+            log.logger("Title " + counter + " text is: " + e.getText());
+            counter++;
+        }
+        return this;
+    }
+
+    HomePage findDescriptionsInSlider(){
+        List<WebElement> elements = driver.findElements(descriptionsInSlider);
+        log.logger("Found " + elements.size() + " descriptions in slider");
         int counter = 0;
         for (WebElement e : elements) {
             log.logger("Element " + counter + " text is: " + e.getText());
