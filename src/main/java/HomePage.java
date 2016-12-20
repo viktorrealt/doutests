@@ -3,7 +3,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utilites.Constants;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import utilites.Log;
 
 public class HomePage {
@@ -19,6 +23,11 @@ public class HomePage {
     private By subHeaderLinks = By.xpath("//div[@class='col70 m-cola']/ul/li/a");
     private By descriptionsInSlider = By.xpath(".//*[@id='slideArticles']/ul/li/div");
     private By titlesInSlider = By.xpath(".//*[@id='slideArticles']/ul/li/a[@class='link']");
+    private By bannersRightBlockImages = By.xpath("//div[@class='items table']/div/a/img");
+    private By allArticlesLink = By.xpath("//div/div/span[@class='all-materials-section']/a[@class='all-materials']");
+    private By calendarHeader = By.xpath(".//*[@id='popularEventsId']/div/h3/a");
+    private By calendarElements = By.xpath(".//*[@id='popularEventsId']/ul[@class='column-list l-events-list']/li/ul/li[@class='item']/a[1]");
+    private By calendarElementsDate = By.xpath(".//*[@id='popularEventsId']/ul[@class='column-list l-events-list']/li/ul/li[@class='item']/div/a");
     private Log log = new Log();
 
     public HomePage(WebDriver driver) {
@@ -130,5 +139,47 @@ public class HomePage {
         return this;
     }
 
+    HomePage findbannersRightBlockImages(){
+        List<WebElement> elements = driver.findElements(bannersRightBlockImages);
+        log.logger("Found " + elements.size() + " banners in right block");
+        int counter = 0;
+        for (WebElement e : elements) {
+            log.logger("Element " + counter + " url is: " + e.getAttribute("src"));
+            counter++;
+        }
+
+        return this;
+    }
+
+    HomePage findAllArticlesLink() {
+        log.logger("All articles link found.");
+        log.logger("All articles link text is: " + driver.findElement(allArticlesLink).getText());
+        return this;
+    }
+
+    HomePage findCalendarHeader() {
+        log.logger("Calendar header found.");
+        log.logger("Calendar header text is: " + driver.findElement(calendarHeader).getText());
+        return this;
+    }
+
+    HomePage findCalendarEventsAndDates(){
+
+        List<WebElement> eventsTitles = driver.findElements(calendarElements);
+        List<WebElement> eventsDates = driver.findElements(calendarElementsDate);
+        HashMap<WebElement, WebElement> combineElements = new HashMap<WebElement, WebElement>(); //K - Titles, V - Dates
+        for(int i = 0; i < eventsDates.size(); i++)
+        {
+            combineElements.put(eventsTitles.get(i), eventsDates.get(i));
+        }
+
+        log.logger("Found " + combineElements.size() + " events on Homepage");
+        for(Map.Entry<WebElement, WebElement> entry: combineElements.entrySet())
+        {
+            log.logger("Event Date is: " + entry.getValue().getText());
+            log.logger("Event title is: " + entry.getKey().getText());
+        }
+        return this;
+    }
 
 }

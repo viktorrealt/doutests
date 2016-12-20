@@ -47,7 +47,10 @@ public class TestsRunner {
         hp.findSubHeaderLinks();
         hp.findTitlesInSlider();
         hp.findDescriptionsInSlider();
-
+        hp.findbannersRightBlockImages();
+        hp.findAllArticlesLink();
+        hp.findCalendarHeader();
+        hp.findCalendarEventsAndDates();
     }
 
     @AfterSuite
